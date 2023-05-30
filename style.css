@@ -1,0 +1,28 @@
+body {
+    background-color:cadetblue;
+}
+
+.card {
+    margin: 10px auto;
+
+}
+
+h1 {
+    text-align: center;
+    font-size: 70px;
+    color: brown;
+}
+.body input {
+    margin: 10px auto;
+}
+.body {
+    display: inline-block;
+    width: 200px;
+}
+.elore {
+    float: right;
+    margin: 0 200px 0 0;
+}
+.hatra {
+    margin: 0 0 0 200px;
+}

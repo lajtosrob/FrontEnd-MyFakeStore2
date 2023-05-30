@@ -1,0 +1,114 @@
+<html>
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <style>
+        header {
+            height: 15%;
+            text-align: center;
+        }
+
+        nav {
+            width: 20%;
+            float: left;
+        }
+    </style>
+
+    <script>
+        const monster_array = [];
+
+
+        function init() {
+            fetch('https://api.escuelajs.co/api/v1/products')
+                .then(res => res.json())
+                //.then(data => console.log(data))
+                .then(elemek => {
+                    elemek.forEach(element => {
+                        monster_array.push(element);
+                    });
+
+
+                })
+                //.then(()=> console.log(monster_array))
+                .then(() => kiir());
+        }
+
+        function kiir() {
+
+            for (let i = 0; i < monster_array.length; i++) {
+                fetch('https://www.dnd5eapi.co' + monster_array[i].title)
+                    .then(res => res.json())
+                    .then(elemek => {
+
+                        try {
+
+                            if (elemek.image != undefined) {
+
+                                document.getElementById("monsters").innerHTML += "<li onclick=szornyleker('" + monster_array[i].index + "')>" + monster_array[i].name + "</li>";
+                            }
+                        }
+                        catch {
+
+                        }
+                    }
+                    );
+
+
+            }
+
+        }
+
+        function szornyleker(para_url) {
+            let temp = [];
+            const elemneve = document.getElementById("cimsor");
+            const elemneve2 = document.getElementById("proba");
+            elemneve2.innerHTML = "";
+            fetch('https://www.dnd5eapi.co/api/monsters/' + para_url)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    elemneve.innerHTML += data.name;
+                    //document.getElementById("cimsor").innerHTML=data.name;
+                    document.getElementById("kepecske").src = "http://www.dnd5eapi.co" + data.image;
+                    elemneve2.innerHTML += "<table class='table table-dark table-striped'><tbody id='proba'>";
+                    elemneve2.innerHTML += "<tr><td>Ügyesség: </td><td> " + data.dexterity + " </td></tr>";
+                    elemneve2.innerHTML += "<tr><td>Intelligencia: </td><td>" + data.intelligence + " </td></tr>";
+                    elemneve2.innerHTML += "<tr><td>Languages: </td><td>" + data.languages + "</td></tr>";
+                    elemneve2.innerHTML += "</tbody></table>";
+
+                })
+        }
+
+        function kiir() {
+
+            for (i = 0; i < monster_array.length; i++) {
+
+                document.getElementById("monsters").innerHTML += "<li onclick=szornyleker('" + monster_array[i].title + "')>" + monster_array[i].price + monster_array[i].id + "</li>";
+
+                //"<li>"+monster_array[i].name+"</li>"
+
+            }
+        }
+
+
+    </script>
+</head>
+
+<body onload="init()">
+    <header>
+        <h1>MyFakeStoreElements</h1>
+    </header>
+    <nav>
+        <ul id="monsters">
+        </ul>
+    </nav>
+    <main>
+        <h2 id="cimsor"></h2>
+        <div id="proba"></div>
+        <img id="kepecske">
+    </main>
+
+</body>
+
+</html>
