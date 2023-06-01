@@ -35,7 +35,7 @@
                 document.getElementById("items").innerHTML = "<h2 style='color: blue;'>Nincs kiválasztva <br> egyetlen kategória sem!!!</h2>";
             }
             else {
-            document.getElementById("items").innerHTML = "<div class='card' style='width: 25rem;'><img src='" + filteredList[i].category.image + "' class='card-img-top' alt='...''><div class='card-body'><h5 class='card-title'>" + filteredList[i].title + "</h5><h4 class='card-text'>" + filteredList[i].price + "€</h4><p class='card-text'><b>Kategória: <b>" + filteredList[i].category.name + "</p><p class='card-text'>" + filteredList.length + "</p><a href='#'' class='btn btn-primary'>Add to cart</a></div></div>";
+            document.getElementById("items").innerHTML = "<div class='card' style='width: 25rem;'><img src='" + filteredList[i].category.image + "' class='card-img-top' alt='...''><div class='card-body'><h5 class='card-title'>" + filteredList[i].title + "</h5><h4 class='card-text'>" + filteredList[i].price + "€</h4><p class='card-text'><b>Kategória: </b>" + filteredList[i].category.name + "</p><p class='card-text'><b>Termékek a választott kategáriákban: </b>" + filteredList.length + "</p><a href='#'' class='btn btn-primary'>Add to cart</a></div></div>";
 
             }
         }
