@@ -15,6 +15,7 @@
     <script>
         i = 0;
         var itemsList = [];
+        var filteredList = [];
         function init() {
 
             fetch("https://api.escuelajs.co/api/v1/products/")
@@ -26,25 +27,48 @@
                     });
                 })
                 .then(() => console.log(itemsList))
-                .then(() => kiir());
+                .then(() => chooseCategory());
         }
 
         function kiir() {
 
-            document.getElementById("items").innerHTML = "<div class='card' style='width: 25rem;'><img src='" + itemsList[i].images[0] + "' class='card-img-top' alt='...''><div class='card-body'><h5 class='card-title'>" + itemsList[i].title + "</h5><h4 class='card-text'>" + itemsList[i].price + "€</h4><p class='card-text'>" + itemsList[i].category.name + "</p><p class='card-text'>" + i + "</p><a href='#'' class='btn btn-primary'>Add to cart</a></div></div>";
+            document.getElementById("items").innerHTML = "<div class='card' style='width: 25rem;'><img src='" + filteredList[i].category.image + "' class='card-img-top' alt='...''><div class='card-body'><h5 class='card-title'>" + filteredList[i].title + "</h5><h4 class='card-text'>" + filteredList[i].price + "€</h4><p class='card-text'>" + filteredList[i].category.name + "</p><p class='card-text'>" + filteredList.length + "</p><a href='#'' class='btn btn-primary'>Add to cart</a></div></div>";
         }
         function Elore() {
             //document.getElementById("items").innerHTML = "";
-            if (i >= 187) i = 0;
-            else if (i < 187) i++;
+            if (i >= filteredList.length) i = 0;
+            else if (i < filteredList.length) i++;
             kiir();
         }
 
         function Hatra() {
             //document.getElementById("items").innerHTML = "";
-            if (i <= 0) i = 187;
+            if (i <= 0) i = filteredList.length;
             else if (i > 0) i--;
             kiir();
+        }
+        function chooseCategory() {
+            i = 0;
+            filteredList = [];
+            itemsList.forEach(item => {
+                if(document.getElementById("shoes").checked && item.category.name == "Shoes") {
+                    filteredList.push(item);
+                }
+                if(document.getElementById("electronics").checked && item.category.name == "Electronics") {
+                    filteredList.push(item);
+                }
+                if(document.getElementById("clothes").checked && item.category.name == "Clothes") {
+                    filteredList.push(item);
+                }
+                if(document.getElementById("change-title").checked && item.category.name == "Change Title") {
+                    filteredList.push(item);
+                }
+                if(document.getElementById("others").checked && item.category.name == "Others") {
+                    filteredList.push(item);
+                }
+                console.log(filteredList.length);
+                kiir();
+            });
         }
     </script>
 </head>
@@ -75,6 +99,29 @@
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
             </li>
         </ul>
+    </div>
+    <div class="category-choice">
+        <label for="">Choose categories</label>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="shoes" checked onclick="chooseCategory()">
+            <label class="form-check-label" for="flexSwitchCheckChecked">Shoes</label>
+          </div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="electronics" checked onclick="chooseCategory()">
+            <label class="form-check-label" for="flexSwitchCheckChecked">Electronics</label>
+          </div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="clothes" checked onclick="chooseCategory()">
+            <label class="form-check-label" for="flexSwitchCheckChecked">Clothes</label>
+          </div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="change-title"  onclick="chooseCategory()">
+            <label class="form-check-label" for="flexSwitchCheckChecked">Change Title</label>
+          </div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="others"  onclick="chooseCategory()">
+            <label class="form-check-label" for="flexSwitchCheckChecked">Others</label>
+          </div>
     </div>
         <div class="header">
             <h1>My Fake Store</h1>
