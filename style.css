@@ -28,8 +28,25 @@ h1 {
 }
 .category-choice {
     margin: 20px;
+
+    display: inline-block;
 }
 h2 {
     text-align: center;
     color: blue;
+}
+.price {
+    margin: 20px;
+
+    display: inline-block;
+}
+.rating {
+    margin: 20px;
+
+    display: inline-block;
+}
+.count {
+    margin: 20px;
+
+    display: inline-block;
 }

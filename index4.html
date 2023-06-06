@@ -12,10 +12,13 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="ico.png">
+
     <script>
         i = 0;
         var itemsList = [];
         var filteredList = [];
+        var priceList = [];
         function init() {
 
             fetch("https://fakestoreapi.com/products/")
@@ -29,13 +32,15 @@
                 .then(() => console.log(itemsList))
                 .then(() => chooseCategory());
         }
-
+        /*itemsList.forEach(element => {
+                console.log(element.rating.rate, element.rating.count);
+            }); */
         function kiir() {
-            if(filteredList.length == 0) {
+            if (priceList.length == 0) {
                 document.getElementById("items").innerHTML = "<h2 style='color: blue;'>Nincs kiválasztva <br> egyetlen kategória sem!!!</h2>";
             }
             else {
-            document.getElementById("items").innerHTML = "<div class='card' style='width: 25rem;'><img src='" + filteredList[i].image + "' class='card-img-top' alt='...' style='height:300px;'><div class='card-body'><h5 class='card-title'>" + filteredList[i].title + "</h5><h4 class='card-text'>" + filteredList[i].price + "€</h4><p class='card-text'><b>Kategória: </b>" + filteredList[i].category + "</p><p class='card-text'><b>Termékek a választott kategáriákban: </b>" + filteredList.length + "</p><a href='#'' class='btn btn-primary'>Add to cart</a></div></div>";
+                document.getElementById("items").innerHTML = "<div class='card' style='width: 25rem;'><img src='" + priceList[i].image + "' class='card-img-top' alt='...' style='height:300px;'><div class='card-body'><h5 class='card-title'>" + priceList[i].title + "</h5><h4 class='card-text'>" + priceList[i].price + "€</h4><p class='card-text'><b>Kategória: </b>" + priceList[i].category + "</p><p class='card-text'><b>Termékek a választott kategáriákban: </b>" + priceList.length + "</p><a href='#'' class='btn btn-primary'>Add to cart</a></div></div>";
 
             }
         }
@@ -53,23 +58,23 @@
             kiir();
         }
         function chooseCategory() {
-            i = 0;
+            //i = 0;
             filteredList = [];
             itemsList.forEach(item => {
-                if(document.getElementById("men-clothing").checked && item.category == "men's clothing") {
+                if (document.getElementById("men-clothing").checked && item.category == "men's clothing") {
                     filteredList.push(item);
                 }
-                if(document.getElementById("jewelery").checked && item.category == "jewelery") {
+                if (document.getElementById("jewelery").checked && item.category == "jewelery") {
                     filteredList.push(item);
                 }
-                if(document.getElementById("electronics").checked && item.category == "electronics") {
+                if (document.getElementById("electronics").checked && item.category == "electronics") {
                     filteredList.push(item);
                 }
-                if(document.getElementById("women-clothing").checked && item.category == "women's clothing") {
+                if (document.getElementById("women-clothing").checked && item.category == "women's clothing") {
                     filteredList.push(item);
                 }
-                console.log(filteredList.length);
-                kiir();
+                //console.log(filteredList.length, itemsList.length);
+                filterByPrice();
             });
         }
         function mindenKategoria() {
@@ -79,14 +84,56 @@
             document.getElementById("women-clothing").checked = true;
             filteredList = itemsList;
             chooseCategory();
-        } 
+        }
         function egyikKategoriaSem() {
             document.getElementById("men-clothing").checked = false;
             document.getElementById("jewelery").checked = false;
             document.getElementById("electronics").checked = false;
             document.getElementById("women-clothing").checked = false;
             filteredList = [];
+            priceList = [];
+            kiir();
+        }
+        function mindenAr() {
+            document.getElementById("price-10").checked = true;
+            document.getElementById("price-100").checked = true;
+            document.getElementById("price-50").checked = true;
+            document.getElementById("price-from-100").checked = true;
+            filteredList = itemsList;
             chooseCategory();
+        }
+        function egyikArSem() {
+            document.getElementById("price-10").checked = false;
+            document.getElementById("price-100").checked = false;
+            document.getElementById("price-50").checked = false;
+            document.getElementById("price-from-100").checked = false;
+            filteredList = [];
+            priceList = [];
+            kiir();
+        }
+
+        function filterByPrice() {
+            priceList = [];
+            filteredList.forEach(element => {
+                if (document.getElementById("price-10").checked && element.price < 10) {
+                    priceList.push(element);
+                }
+                if (document.getElementById("price-100").checked && element.price >= 10 && element.price < 50) {
+                    priceList.push(element);
+                }
+                if (document.getElementById("price-50").checked && element.price >= 50 && element.price < 100) {
+                    priceList.push(element);
+                }
+                if (document.getElementById("price-from-100").checked && element.price >= 100) {
+                    priceList.push(element);
+                }
+
+            });
+            //console.log(priceList.length);
+
+
+
+            kiir();
         }
     </script>
 </head>
@@ -123,40 +170,104 @@
 
     </div>
     <div class="category-choice">
-        <h5>Choose categories</h5>
+        <h5>Category</h5>
         <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" id="men-clothing" checked onclick="chooseCategory()">
             <label class="form-check-label" for="flexSwitchCheckChecked">Men's clothing</label>
-          </div>
-          <div class="form-check form-switch">
+        </div>
+        <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" id="jewelery" checked onclick="chooseCategory()">
             <label class="form-check-label" for="flexSwitchCheckChecked">Jewelery</label>
-          </div>
-          <div class="form-check form-switch">
+        </div>
+        <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" id="electronics" checked onclick="chooseCategory()">
             <label class="form-check-label" for="flexSwitchCheckChecked">Electronics</label>
-          </div>
-          <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="women-clothing"  onclick="chooseCategory()">
+        </div>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="women-clothing" onclick="chooseCategory()">
             <label class="form-check-label" for="flexSwitchCheckChecked">Women's clothing</label>
-          </div>
+        </div>
 
-          <input type="button" class="btn btn-warning" value="All categories" onclick="mindenKategoria()">
-          <input type="button" class="btn btn-warning" value="Neither category" onclick="egyikKategoriaSem()">
+        <input type="button" class="btn btn-warning" value="All categories" onclick="mindenKategoria()">
+        <input type="button" class="btn btn-warning" value="Neither category" onclick="egyikKategoriaSem()">
+    </div>
+    <div class="price">
+        <h5>Price</h5>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="price-10" checked onclick="filterByPrice()">
+            <label class="form-check-label" for="flexSwitchCheckChecked">1-9.9€</label>
+        </div>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="price-50" checked onclick="filterByPrice()">
+            <label class="form-check-label" for="flexSwitchCheckChecked">10-49.9€</label>
+        </div>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="price-100" checked onclick="filterByPrice()">
+            <label class="form-check-label" for="flexSwitchCheckChecked">50-99.9€</label>
+        </div>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="price-from-100" onclick="filterByPrice()">
+            <label class="form-check-label" for="flexSwitchCheckChecked">100€-</label>
+        </div>
+
+        <input type="button" class="btn btn-warning" value="All prices" onclick="mindenAr()">
+        <input type="button" class="btn btn-warning" value="Neither price" onclick="egyikArSem()">
     </div>
 
-        <div class="hatra">
-            <a href='#'' class='btn btn-success' onclick="Hatra()">Hátra</a>
-            <a href='#'' class='btn btn-success elore' onclick="Elore()">Előre</a>
-
-
+    <div class="rating">
+        <h5>Customer's feedback</h5>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="feedback1" checked onclick="filterByPrice()">
+            <label class="form-check-label" for="flexSwitchCheckChecked">1-1,9</label>
         </div>
-        <div>
-
-
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="feedback2" checked onclick="filterByPrice()">
+            <label class="form-check-label" for="flexSwitchCheckChecked">2-2,9</label>
+        </div>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="feedback3" checked onclick="filterByPrice()">
+            <label class="form-check-label" for="flexSwitchCheckChecked">3-3,9</label>
+        </div>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="feedback4" onclick="filterByPrice()">
+            <label class="form-check-label" for="flexSwitchCheckChecked">4-4,9</label>
         </div>
 
-        <div id="items"></div>
+        <input type="button" class="btn btn-warning" value="All feedbacks" onclick="mindenAr()">
+        <input type="button" class="btn btn-warning" value="Neither feedback" onclick="egyikArSem()">
+    </div>
+
+    <div class="count">
+        <h5>Popularity</h5>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="count1" checked onclick="filterByPrice()">
+            <label class="form-check-label" for="flexSwitchCheckChecked">1-99</label>
+        </div>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="count2" checked onclick="filterByPrice()">
+            <label class="form-check-label" for="flexSwitchCheckChecked">100-199</label>
+        </div>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="count3" checked onclick="filterByPrice()">
+            <label class="form-check-label" for="flexSwitchCheckChecked">200-299</label>
+        </div>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="count4" onclick="filterByPrice()">
+            <label class="form-check-label" for="flexSwitchCheckChecked">400-</label>
+        </div>
+
+        <input type="button" class="btn btn-warning" value="All " onclick="mindenAr()">
+        <input type="button" class="btn btn-warning" value="None" onclick="egyikArSem()">
+    </div>
+
+    <div class="hatra">
+        <a href='#'' class=' btn btn-success' onclick="Hatra()">Hátra</a>
+        <a href='#'' class=' btn btn-success elore' onclick="Elore()">Előre</a>
+
+
+    </div>
+
+    <div id="items"></div>
 
 
 
