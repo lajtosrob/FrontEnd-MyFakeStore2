@@ -19,6 +19,7 @@
         var itemsList = [];
         var filteredList = [];
         var priceList = [];
+        var feedbackList = [];
         function init() {
 
             fetch("https://fakestoreapi.com/products/")
@@ -36,24 +37,24 @@
                 console.log(element.rating.rate, element.rating.count);
             }); */
         function kiir() {
-            if (priceList.length == 0) {
+            if (feedbackList.length == 0) {
                 document.getElementById("items").innerHTML = "<h2 style='color: blue;'>Nincs kiválasztva <br> egyetlen kategória sem!!!</h2>";
             }
             else {
-                document.getElementById("items").innerHTML = "<div class='card' style='width: 25rem;'><img src='" + priceList[i].image + "' class='card-img-top' alt='...' style='height:300px;'><div class='card-body'><h5 class='card-title'>" + priceList[i].title + "</h5><h4 class='card-text'>" + priceList[i].price + "€</h4><p class='card-text'><b>Kategória: </b>" + priceList[i].category + "</p><p class='card-text'><b>Termékek a választott kategáriákban: </b>" + priceList.length + "</p><a href='#'' class='btn btn-primary'>Add to cart</a></div></div>";
+                document.getElementById("items").innerHTML = "<div class='card' style='width: 25rem;'><img src='" + feedbackList[i].image + "' class='card-img-top' alt='...' style='height:300px;'><div class='card-body'><h5 class='card-title'>" + feedbackList[i].title + "</h5><h4 class='card-text'>" + feedbackList[i].price + "€</h4><p class='card-text'><b>Kategória: </b>" + feedbackList[i].category + "</p><p class='card-text'><b>Termékek a választott kategáriákban: </b>" + feedbackList.length + "</p><a href='#'' class='btn btn-primary'>Add to cart</a></div></div>";
 
             }
         }
         function Elore() {
             //document.getElementById("items").innerHTML = "";
-            if (i >= filteredList.length) i = 0;
-            else if (i < filteredList.length) i++;
+            if (i >= feedbackList.length) i = 0;
+            else if (i < feedbackList.length) i++;
             kiir();
         }
 
         function Hatra() {
             //document.getElementById("items").innerHTML = "";
-            if (i <= 0) i = filteredList.length;
+            if (i <= 0) i = feedbackList.length;
             else if (i > 0) i--;
             kiir();
         }
@@ -111,6 +112,23 @@
             priceList = [];
             kiir();
         }
+        function allFeedback() {
+            document.getElementById("feedback1").checked = true;
+            document.getElementById("feedback2").checked = true;
+            document.getElementById("feedback3").checked = true;
+            document.getElementById("feedback4").checked = true;
+            filteredList = itemsList;
+            chooseCategory();
+        }
+        function noneFeedback() {
+            document.getElementById("feedback1").checked = false;
+            document.getElementById("feedback2").checked = false;
+            document.getElementById("feedback3").checked = false;
+            document.getElementById("feedback4").checked = false;
+            filteredList = [];
+            priceList = [];
+            kiir();
+        }
 
         function filterByPrice() {
             priceList = [];
@@ -127,9 +145,33 @@
                 if (document.getElementById("price-from-100").checked && element.price >= 100) {
                     priceList.push(element);
                 }
+                filterByFeedback();
+            });
+            console.log(priceList.length);
+
+
+
+            //kiir();
+        }
+
+        function filterByFeedback() {
+            feedbackList = [];
+            priceList.forEach(element => {
+                if (document.getElementById("feedback1").checked && element.rating.rate < 2) {
+                    feedbackList.push(element);
+                }
+                if (document.getElementById("feedback2").checked && element.rating.rate >= 2 && element.price < 3) {
+                    feedbackList.push(element);
+                }
+                if (document.getElementById("feedback3").checked && element.rating.rate >= 3 && element.price < 4) {
+                    feedbackList.push(element);
+                }
+                if (document.getElementById("feedback4").checked && element.rating.rate >= 4) {
+                    feedbackList.push(element);
+                }
 
             });
-            //console.log(priceList.length);
+            console.log(feedbackList.length);
 
 
 
@@ -233,31 +275,31 @@
             <label class="form-check-label" for="flexSwitchCheckChecked">4-4,9</label>
         </div>
 
-        <input type="button" class="btn btn-warning" value="All feedbacks" onclick="mindenAr()">
-        <input type="button" class="btn btn-warning" value="Neither feedback" onclick="egyikArSem()">
+        <input type="button" class="btn btn-warning" value="All feedbacks" onclick="allFeedback()">
+        <input type="button" class="btn btn-warning" value="Neither feedback" onclick="noneFeedback()">
     </div>
 
-    <div class="count">
-        <h5>Popularity</h5>
+    <div class="sales">
+        <h5>Number of sales</h5>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="count1" checked onclick="filterByPrice()">
+            <input class="form-check-input" type="checkbox" id="count1" checked onclick="filterBySales()">
             <label class="form-check-label" for="flexSwitchCheckChecked">1-99</label>
         </div>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="count2" checked onclick="filterByPrice()">
+            <input class="form-check-input" type="checkbox" id="count2" checked onclick="filterBySales()">
             <label class="form-check-label" for="flexSwitchCheckChecked">100-199</label>
         </div>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="count3" checked onclick="filterByPrice()">
+            <input class="form-check-input" type="checkbox" id="count3" checked onclick="filterBySales()">
             <label class="form-check-label" for="flexSwitchCheckChecked">200-299</label>
         </div>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="count4" onclick="filterByPrice()">
+            <input class="form-check-input" type="checkbox" id="count4" onclick="filterBySales()">
             <label class="form-check-label" for="flexSwitchCheckChecked">400-</label>
         </div>
 
-        <input type="button" class="btn btn-warning" value="All " onclick="mindenAr()">
-        <input type="button" class="btn btn-warning" value="None" onclick="egyikArSem()">
+        <input type="button" class="btn btn-warning" value="All " onclick="AllSales()">
+        <input type="button" class="btn btn-warning" value="None" onclick="NeitherSales()">
     </div>
 
     <div class="hatra">
