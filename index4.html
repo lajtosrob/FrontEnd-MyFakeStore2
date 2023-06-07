@@ -92,7 +92,7 @@
             document.getElementById("electronics").checked = false;
             document.getElementById("women-clothing").checked = false;
             filteredList = [];
-            priceList = [];
+            feedbackList = [];
             kiir();
         }
         function mindenAr() {
@@ -109,7 +109,7 @@
             document.getElementById("price-50").checked = false;
             document.getElementById("price-from-100").checked = false;
             filteredList = [];
-            priceList = [];
+            feedbackList = [];
             kiir();
         }
         function allFeedback() {
@@ -126,7 +126,25 @@
             document.getElementById("feedback3").checked = false;
             document.getElementById("feedback4").checked = false;
             filteredList = [];
-            priceList = [];
+            feedbackList = [];
+            kiir();
+        }
+
+        function allSales() {
+            document.getElementById("sales1").checked = true;
+            document.getElementById("sales2").checked = true;
+            document.getElementById("sales3").checked = true;
+            document.getElementById("sales4").checked = true;
+            filteredList = itemsList;
+            chooseCategory();
+        }
+        function noneSales() {
+            document.getElementById("sales1").checked = false;
+            document.getElementById("sales2").checked = false;
+            document.getElementById("sales3").checked = false;
+            document.getElementById("sales4").checked = false;
+            filteredList = [];
+            feedbackList = [];
             kiir();
         }
 
@@ -160,10 +178,10 @@
                 if (document.getElementById("feedback1").checked && element.rating.rate < 2) {
                     feedbackList.push(element);
                 }
-                if (document.getElementById("feedback2").checked && element.rating.rate >= 2 && element.price < 3) {
+                if (document.getElementById("feedback2").checked && element.rating.rate >= 2 && element.rating.rate < 3) {
                     feedbackList.push(element);
                 }
-                if (document.getElementById("feedback3").checked && element.rating.rate >= 3 && element.price < 4) {
+                if (document.getElementById("feedback3").checked && element.rating.rate >= 3 && element.rating.rate < 4) {
                     feedbackList.push(element);
                 }
                 if (document.getElementById("feedback4").checked && element.rating.rate >= 4) {
@@ -176,6 +194,30 @@
 
 
             kiir();
+        }
+
+        function filterBySales() {
+            salesList = [];
+            feedbackList.forEach(element => {
+                if (document.getElementById("sales1").checked && element.rating.count < 100) {
+                    salesList.push(element);
+                }
+                if (document.getElementById("sales2").checked && element.rating.count >= 100 && element.rating.count < 200) {
+                    salesList.push(element);
+                }
+                if (document.getElementById("sales3").checked && element.rating.count >= 200 && element.rating.count < 300) {
+                    salesList.push(element);
+                }
+                if (document.getElementById("sales4").checked && element.rating.count >= 400) {
+                    salesList.push(element);
+                }
+
+            });
+            console.log(salesList.length);
+
+
+
+            //kiir();
         }
     </script>
 </head>
@@ -259,19 +301,19 @@
     <div class="rating">
         <h5>Customer's feedback</h5>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="feedback1" checked onclick="filterByPrice()">
+            <input class="form-check-input" type="checkbox" id="feedback1" checked onclick="filterByFeedback()">
             <label class="form-check-label" for="flexSwitchCheckChecked">1-1,9</label>
         </div>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="feedback2" checked onclick="filterByPrice()">
+            <input class="form-check-input" type="checkbox" id="feedback2" checked onclick="filterByFeedback()">
             <label class="form-check-label" for="flexSwitchCheckChecked">2-2,9</label>
         </div>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="feedback3" checked onclick="filterByPrice()">
+            <input class="form-check-input" type="checkbox" id="feedback3" checked onclick="filterByFeedback()">
             <label class="form-check-label" for="flexSwitchCheckChecked">3-3,9</label>
         </div>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="feedback4" onclick="filterByPrice()">
+            <input class="form-check-input" type="checkbox" id="feedback4" onclick="filterByFeedback()">
             <label class="form-check-label" for="flexSwitchCheckChecked">4-4,9</label>
         </div>
 
@@ -282,24 +324,24 @@
     <div class="sales">
         <h5>Number of sales</h5>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="count1" checked onclick="filterBySales()">
+            <input class="form-check-input" type="checkbox" id="sales1" checked onclick="filterBySales()">
             <label class="form-check-label" for="flexSwitchCheckChecked">1-99</label>
         </div>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="count2" checked onclick="filterBySales()">
+            <input class="form-check-input" type="checkbox" id="sales2" checked onclick="filterBySales()">
             <label class="form-check-label" for="flexSwitchCheckChecked">100-199</label>
         </div>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="count3" checked onclick="filterBySales()">
+            <input class="form-check-input" type="checkbox" id="sales3" checked onclick="filterBySales()">
             <label class="form-check-label" for="flexSwitchCheckChecked">200-299</label>
         </div>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="count4" onclick="filterBySales()">
+            <input class="form-check-input" type="checkbox" id="sales4" onclick="filterBySales()">
             <label class="form-check-label" for="flexSwitchCheckChecked">400-</label>
         </div>
 
-        <input type="button" class="btn btn-warning" value="All " onclick="AllSales()">
-        <input type="button" class="btn btn-warning" value="None" onclick="NeitherSales()">
+        <input type="button" class="btn btn-warning" value="All " onclick="allSales()">
+        <input type="button" class="btn btn-warning" value="None" onclick="noneSales()">
     </div>
 
     <div class="hatra">
