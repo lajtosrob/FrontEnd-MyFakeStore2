@@ -37,13 +37,15 @@
                 console.log(element.rating.rate, element.rating.count);
             }); */
         function kiir() {
+            document.getElementById("items").innerHTML = "<h2 style='color: blue;'>Number of items : " + itemsList.length;
+
             if (feedbackList.length == 0) {
-                document.getElementById("items").innerHTML = "<h2 style='color: blue;'>Találatok száma: " + salesList.length;
+                document.getElementById("items").innerHTML += "<h2 style='color: blue;'>Number of search results : " + salesList.length;
             }
             else {
-                document.getElementById("items").innerHTML = "<h2 style='color: blue;'>Találatok száma: " + salesList.length;
+                document.getElementById("items").innerHTML += "<h2 style='color: blue;'>Number of search results : " + salesList.length;
 
-                document.getElementById("items").innerHTML += "<div class='card' style='width: 25rem;'><img src='" + salesList[i].image + "' class='card-img-top' alt='...' style='height:300px;'><div class='card-body'><h5 class='card-title'>" + salesList[i].title + "</h5><h4 class='card-text'>" + salesList[i].price + "€</h4><p class='card-text'><b>Kategória: </b>" + salesList[i].category + "</p><p class='card-text'><b>Customer's feedback: </b>" + salesList[i].rating.rate + "</p><b>Number of sales: </b>" + salesList[i].rating.count + "</p><a href='#'' class='btn btn-primary'>Add to cart</a></div></div>";
+                document.getElementById("items").innerHTML += "<div class='card' style='width: 25rem;'><img src='" + salesList[i].image + "' class='card-img-top' alt='...' style='height:300px;'><div class='card-body'><h5 class='card-title'>" + salesList[i].title + "</h5><h4 class='card-text'>" + salesList[i].price + "€</h4><p class='card-text'><b>Category: </b>" + salesList[i].category + "</p><p class='card-text'><b>Customer's feedback: </b>" + salesList[i].rating.rate + "</p><b>Number of sales: </b>" + salesList[i].rating.count + "</p><a href='#'' class='btn btn-primary'>Add to cart</a></div></div>";
 
             }
         }
@@ -342,16 +344,12 @@
     </div>
 
     <div class="hatra">
-        <a href='#'' class=' btn btn-success' onclick="Hatra()">Hátra</a>
-        <a href='#'' class=' btn btn-success elore' onclick="Elore()">Előre</a>
-
+        <a href='#'' class=' btn btn-success' onclick="Hatra()">Previous item</a>
+        <a href='#'' class=' btn btn-success elore' onclick="Elore()">Next item</a>
 
     </div>
 
     <div id="items"></div>
-
-
-
 
 </body>
 
