@@ -38,23 +38,25 @@
             }); */
         function kiir() {
             if (feedbackList.length == 0) {
-                document.getElementById("items").innerHTML = "<h2 style='color: blue;'>Nincs kiválasztva <br> egyetlen kategória sem!!!</h2>";
+                document.getElementById("items").innerHTML = "<h2 style='color: blue;'>Találatok száma: " + salesList.length;
             }
             else {
-                document.getElementById("items").innerHTML = "<div class='card' style='width: 25rem;'><img src='" + feedbackList[i].image + "' class='card-img-top' alt='...' style='height:300px;'><div class='card-body'><h5 class='card-title'>" + feedbackList[i].title + "</h5><h4 class='card-text'>" + feedbackList[i].price + "€</h4><p class='card-text'><b>Kategória: </b>" + feedbackList[i].category + "</p><p class='card-text'><b>Termékek a választott kategáriákban: </b>" + feedbackList.length + "</p><a href='#'' class='btn btn-primary'>Add to cart</a></div></div>";
+                document.getElementById("items").innerHTML = "<h2 style='color: blue;'>Találatok száma: " + salesList.length;
+
+                document.getElementById("items").innerHTML += "<div class='card' style='width: 25rem;'><img src='" + salesList[i].image + "' class='card-img-top' alt='...' style='height:300px;'><div class='card-body'><h5 class='card-title'>" + salesList[i].title + "</h5><h4 class='card-text'>" + salesList[i].price + "€</h4><p class='card-text'><b>Kategória: </b>" + salesList[i].category + "</p><p class='card-text'><b>Termékek a választott kategáriákban: </b>" + salesList.length + "</p><a href='#'' class='btn btn-primary'>Add to cart</a></div></div>";
 
             }
         }
         function Elore() {
             //document.getElementById("items").innerHTML = "";
-            if (i >= feedbackList.length) i = 0;
-            else if (i < feedbackList.length) i++;
+            if (i >= salesList.length) i = 0;
+            else if (i < salesList.length) i++;
             kiir();
         }
 
         function Hatra() {
             //document.getElementById("items").innerHTML = "";
-            if (i <= 0) i = feedbackList.length;
+            if (i <= 0) i = salesList.length;
             else if (i > 0) i--;
             kiir();
         }
@@ -92,7 +94,7 @@
             document.getElementById("electronics").checked = false;
             document.getElementById("women-clothing").checked = false;
             filteredList = [];
-            feedbackList = [];
+            salesList = [];
             kiir();
         }
         function mindenAr() {
@@ -109,7 +111,7 @@
             document.getElementById("price-50").checked = false;
             document.getElementById("price-from-100").checked = false;
             filteredList = [];
-            feedbackList = [];
+            salesList = [];
             kiir();
         }
         function allFeedback() {
@@ -126,7 +128,7 @@
             document.getElementById("feedback3").checked = false;
             document.getElementById("feedback4").checked = false;
             filteredList = [];
-            feedbackList = [];
+            salesList = [];
             kiir();
         }
 
@@ -144,7 +146,7 @@
             document.getElementById("sales3").checked = false;
             document.getElementById("sales4").checked = false;
             filteredList = [];
-            feedbackList = [];
+            salesList = [];
             kiir();
         }
 
@@ -190,10 +192,7 @@
 
             });
             console.log(feedbackList.length);
-
-
-
-            kiir();
+            filterBySales();
         }
 
         function filterBySales() {
@@ -202,10 +201,10 @@
                 if (document.getElementById("sales1").checked && element.rating.count < 100) {
                     salesList.push(element);
                 }
-                if (document.getElementById("sales2").checked && element.rating.count >= 100 && element.rating.count < 200) {
+                if (document.getElementById("sales2").checked && element.rating.count >= 100 && element.rating.count < 250) {
                     salesList.push(element);
                 }
-                if (document.getElementById("sales3").checked && element.rating.count >= 200 && element.rating.count < 300) {
+                if (document.getElementById("sales3").checked && element.rating.count >= 250 && element.rating.count < 400) {
                     salesList.push(element);
                 }
                 if (document.getElementById("sales4").checked && element.rating.count >= 400) {
@@ -217,7 +216,7 @@
 
 
 
-            //kiir();
+            kiir();
         }
     </script>
 </head>
