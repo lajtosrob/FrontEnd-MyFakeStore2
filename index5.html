@@ -69,8 +69,7 @@
             <label class="form-check-label" for="women-clothing">Women's clothing</label>
         </div>
 
-        <input type="button" class="btn btn-warning" value="All categories" onclick="mindenKategoria()">
-        <input type="button" class="btn btn-warning" value="Neither category" onclick="egyikKategoriaSem()">
+
     </div>
     <div class="price">
         <h5>Price</h5>
@@ -91,59 +90,56 @@
             <label class="form-check-label" for="price-from-100">100€-</label>
         </div>
 
-        <input type="button" class="btn btn-warning" value="All prices" onclick="mindenAr()">
-        <input type="button" class="btn btn-warning" value="Neither price" onclick="egyikArSem()">
+
     </div>
 
     <div class="rating">
         <h5>Customer's feedback</h5>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="feedback1" checked onclick="filterByFeedback()">
+            <input class="form-check-input" type="checkbox" id="feedback1" checked onclick="chooseCategory()">
             <label class="form-check-label" for="feedback1">1-1,9</label>
         </div>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="feedback2" checked onclick="filterByFeedback()">
+            <input class="form-check-input" type="checkbox" id="feedback2" checked onclick="chooseCategory()">
             <label class="form-check-label" for="feedback2">2-2,9</label>
         </div>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="feedback3" checked onclick="filterByFeedback()">
+            <input class="form-check-input" type="checkbox" id="feedback3" checked onclick="chooseCategory()">
             <label class="form-check-label" for="feedback3">3-3,9</label>
         </div>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="feedback4" onclick="filterByFeedback()">
+            <input class="form-check-input" type="checkbox" id="feedback4" onclick="chooseCategory()">
             <label class="form-check-label" for="feedback4">4-4,9</label>
         </div>
 
-        <input type="button" class="btn btn-warning" value="All feedbacks" onclick="allFeedback()">
-        <input type="button" class="btn btn-warning" value="Neither feedback" onclick="noneFeedback()">
+
     </div>
 
     <div class="sales">
         <h5>Number of sales</h5>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="sales1" checked onclick="filterBySales()">
+            <input class="form-check-input" type="checkbox" id="sales1" checked onclick="chooseCategory()">
             <label class="form-check-label" for="sales1">1-99</label>
         </div>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="sales2" checked onclick="filterBySales()">
+            <input class="form-check-input" type="checkbox" id="sales2" checked onclick="chooseCategory()">
             <label class="form-check-label" for="sales2">100-199</label>
         </div>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="sales3" checked onclick="filterBySales()">
+            <input class="form-check-input" type="checkbox" id="sales3" checked onclick="chooseCategory()">
             <label class="form-check-label" for="sales3">200-299</label>
         </div>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="sales4" checked onclick="filterBySales()">
+            <input class="form-check-input" type="checkbox" id="sales4" checked onclick="chooseCategory()">
             <label class="form-check-label" for="sales4">400-</label>
         </div>
 
-        <input type="button" class="btn btn-warning" value="All " onclick="allSales()">
-        <input type="button" class="btn btn-warning" value="None" onclick="noneSales()">
+
     </div>
 
     <div class="hatra">
-        <a href='#'' class=' btn btn-success' onclick="Hatra()">Previous item</a>
-        <a href='#'' class=' btn btn-success elore' onclick="Elore()">Next item</a>
+        <a href='' class=' btn btn-success' onclick="Hatra()">Previous item</a>
+        <a href='' class=' btn btn-success elore' onclick="Elore()">Next item</a>
 
     </div>
 
